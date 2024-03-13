@@ -1,0 +1,6 @@
+@TMAWarehouse.Services.Item_HostAddress = http://localhost:5019
+
+GET {{TMAWarehouse.Services.Item_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
