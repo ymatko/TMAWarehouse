@@ -2,20 +2,22 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TMAWarehouse.Services.Item.Data;
-using TMAWarehouse.Services.Item.Models.Dto;
+using TMAWarehouse.Services.TMARequest.Models.Dto;
+using TMAWWarehouse.Services.TMARequests.Data;
+using TMAWWarehouse.Services.TMARequests.Models;
+using TMAWWarehouse.Services.TMARequests.Models.Dto;
 
-namespace TMAWarehouse.Services.Item.Controllers
+namespace TMAWWarehouse.Services.TMARequests.Controllers
 {
-    [Route("Lists/Items")]
+    [Route("Lists/Orders")]
     [ApiController]
-    public class ItemAPIController : ControllerBase
+    public class TMARequestAPIController : ControllerBase
     {
         private readonly AppDbContext _db;
         private readonly ResponseDto _response;
         private readonly IMapper _mapper;
 
-        public ItemAPIController(AppDbContext db, IMapper mapper)
+        public TMARequestAPIController(AppDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
@@ -28,8 +30,8 @@ namespace TMAWarehouse.Services.Item.Controllers
         {
             try
             {
-                IEnumerable<Models.Item> itemList = await _db.Items.ToListAsync();
-                _response.Result = _mapper.Map<IEnumerable<ItemDto>>(itemList);
+                IEnumerable<TMARequest> requestsList = await _db.TMARequests.ToListAsync();
+                _response.Result = _mapper.Map<IEnumerable<TMARequestDto>>(requestsList);
             }
             catch (Exception ex)
             {
@@ -45,8 +47,8 @@ namespace TMAWarehouse.Services.Item.Controllers
         {
             try
             {
-                Models.Item item = await _db.Items.FirstAsync(u => u.ItemID == id);
-                _response.Result = _mapper.Map<ItemDto>(item);
+                TMARequest request = await _db.TMARequests.FirstAsync(u => u.RequestID == id);
+                _response.Result = _mapper.Map<TMARequestDto>(request);
             }
             catch (Exception ex)
             {
@@ -56,16 +58,16 @@ namespace TMAWarehouse.Services.Item.Controllers
             return _response;
         }
 
-        [HttpPost("CreateItem")]
+        [HttpPost("CreateTMARequest")]
         [Tags("Creators")]
-        public async Task<ResponseDto?> Post([FromBody] ItemDto itemDto)
+        public async Task<ResponseDto?> Post([FromBody] TMARequestDto requestDto)
         {
             try
             {
-                Models.Item item = _mapper.Map<Models.Item>(itemDto);
-                _db.Items.Add(item);
+                TMARequest item = _mapper.Map<TMARequest>(requestDto);
+                _db.TMARequests.Add(item);
                 await _db.SaveChangesAsync();
-                _response.Result = _mapper.Map<ItemDto>(item);
+                _response.Result = _mapper.Map<TMARequestDto>(item);
             }
             catch (Exception ex)
             {
@@ -75,16 +77,16 @@ namespace TMAWarehouse.Services.Item.Controllers
             return _response;
         }
 
-        [HttpPut("UpdateItem")]
+        [HttpPut("UpdateTMARequest")]
         [Tags("Updaters")]
-        public async Task<ResponseDto?> Put([FromBody] ItemDto itemDto)
+        public async Task<ResponseDto?> Put([FromBody] TMARequestDto itemDto)
         {
             try
             {
-                Models.Item item = _mapper.Map<Models.Item>(itemDto);
-                _db.Items.Update(item);
+                TMARequest item = _mapper.Map<TMARequest>(itemDto);
+                _db.TMARequests.Update(item);
                 await _db.SaveChangesAsync();
-                _response.Result = _mapper.Map<ItemDto>(item);
+                _response.Result = _mapper.Map<TMARequestDto>(item);
             }
             catch (Exception ex)
             {
@@ -94,14 +96,14 @@ namespace TMAWarehouse.Services.Item.Controllers
             return _response;
         }
 
-        [HttpDelete("DeleteItem/{id:int}")]
+        [HttpDelete("DeleteTMARequest/{id:int}")]
         [Tags("Deleters")]
         public async Task<ResponseDto?> Delete(int id)
         {
             try
             {
-                Models.Item item = await _db.Items.FirstAsync(u => u.ItemID == id);
-                _db.Items.Remove(item);
+                TMARequest item = await _db.TMARequests.FirstAsync(u => u.RequestID == id);
+                _db.TMARequests.Remove(item);
                 await _db.SaveChangesAsync();
             }
             catch (Exception ex)
