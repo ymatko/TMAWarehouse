@@ -17,7 +17,7 @@ namespace TMAWarehouse.Web.Services
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.GET,
-                Url = SD.OrderAPIBase + "/Lists/Orderes/GetAll"
+                Url = SD.OrderAPIBase + "/Lists/Orders/GetAll"
             });
         }
 
@@ -26,7 +26,7 @@ namespace TMAWarehouse.Web.Services
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.GET,
-                Url = SD.OrderAPIBase + "/Lists/Orderes/Get/" + id
+                Url = SD.OrderAPIBase + "/Lists/Orders/Get/" + id
             });
         }
 
@@ -36,7 +36,7 @@ namespace TMAWarehouse.Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = tMARequestDto,
-                Url = SD.OrderAPIBase + "/Lists/Orderes/CreateTMARequest"
+                Url = SD.OrderAPIBase + "/Lists/Orders/CreateTMARequest"
             });
         }
 
@@ -46,7 +46,7 @@ namespace TMAWarehouse.Web.Services
             {
                 ApiType = SD.ApiType.PUT,
                 Data = tMARequestDto,
-                Url = SD.OrderAPIBase + "/Lists/Orderes/UpdateTMARequest"
+                Url = SD.OrderAPIBase + "/Lists/Orders/UpdateTMARequest"
             });
         }
 
@@ -55,7 +55,7 @@ namespace TMAWarehouse.Web.Services
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.DELETE,
-                Url = SD.OrderAPIBase + "/Lists/Orderes/DeleteTMARequest/" + id
+                Url = SD.OrderAPIBase + "/Lists/Orders/DeleteTMARequest/" + id
             });
         }
     }
