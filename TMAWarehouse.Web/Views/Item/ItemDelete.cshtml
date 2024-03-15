@@ -1,0 +1,85 @@
+﻿@model ItemDto
+
+<form asp-action="ItemDelete">
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="text-dark">Delete Item</h1>
+                </div>
+            </div>
+        </div>
+        <input hidden asp-for="ItemID" />
+        <div class="card-body p-4">
+            <div class="row pb-3">
+                <div class="col-6">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">ID</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="ItemID" disabled class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Group</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Group" disabled class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Unit Of Measurement</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="UnitOfMeasurement" class="form-control" disabled rows="5" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Quantity</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Quantity" disabled class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Price Without VAT</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="PriceWithoutVAT" disabled class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Status</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Status" disabled class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Storage Location</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="StorageLocation" disabled class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Contact Person</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="ContactPerson" disabled class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label class="control-label pt-2" style="font-size:20px;">Photo</label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Photo" disabled class="form-control" />
+                </div>
+                <div class="col-5 offset-2">
+                    <a asp-action="ItemIndex" class="btn-outline-dark btn form-control ">Back to List</a>
+                </div>
+                <div class="col-5">
+                    <input type="submit" value="Delete" class="btn btn-danger form-control" />
+                </div>
+            </div>
+        </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
