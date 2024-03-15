@@ -1,0 +1,90 @@
+﻿@model IEnumerable<TMARequestDto>
+
+<div class="card shadow border-0 mt-4">
+	<div class="card-header bg-gradient ml-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1 class="text-dark">List of Orders</h1>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<div class="row pb-3">
+			<div class="col-6">
+			</div>
+			<div class="col-6 text-end">
+				<a asp-action="OrderCreate" class="btn btn-outline-success"><i class="bi bi-plus-square"></i> Create New Order</a>
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						ID
+					</th>
+					<th>
+						Employee Name
+					</th>
+					<th>
+						Group
+					</th>
+					<th>
+						Unit Of Measurement
+					</th>
+					<th>
+						Quantity
+					</th>
+					<th>
+						Price Without VAT
+					</th>
+					<th>
+						Comment
+					</th>
+					<th>
+						Status
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>
+							@item.RequestID
+						</td>
+						<td>
+							@item.EmployeeName
+						</td>
+						<td>
+							@item.Group
+						</td>
+						<td>
+							@item.UnitOfMeasurement
+						</td>
+						<td>
+							@item.Quantity
+						</td>
+						<td>
+							@((item.PriceWithoutVAT).ToString("c"))
+						</td>
+						<td>
+							@item.Comment
+						</td>
+						<td>
+							@item.Status
+						</td>
+						<td>
+							<a class="btn btn-dark" asp-action="OrderUpdate" asp-route-orderId="@item.RequestID">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+							<a class="btn btn-danger" asp-action="OrderDelete" asp-route-orderId="@item.RequestID">
+								<i class="bi bi-trash"></i>
+							</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
