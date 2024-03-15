@@ -16,75 +16,42 @@
 				<a asp-action="ItemCreate" class="btn btn-outline-success"><i class="bi bi-plus-square"></i> Create New Item</a>
 			</div>
 		</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>
-						ID
-					</th>
-					<th>
-						Group
-					</th>
-					<th>
-						Unit Of Measurement
-					</th>
-					<th>
-						Quantity
-					</th>
-					<th>
-						Price Without VAT
-					</th>
-					<th>
-						Status
-					</th>
-					<th>
-						Storage Location
-					</th>
-					<th>
-						Contact Person
-					</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var item in Model)
-				{
+		<div>
+			<table id="tblData" class="table table-bordered table-striped pt-3" style="width:100%">
+				<thead>
 					<tr>
-						<td>
-							@item.ItemID
-						</td>
-						<td>
-							@item.Group
-						</td>
-						<td>
-							@item.UnitOfMeasurement
-						</td>
-						<td>
-							@item.Quantity
-						</td>
-						<td>
-							@((item.PriceWithoutVAT).ToString("c"))
-						</td>
-						<td>
-							@item.Status
-						</td>
-						<td>
-							@item.StorageLocation
-						</td>
-						<td>
-							@item.ContactPerson
-						</td>
-						<td>
-							<a class="btn btn-dark" asp-action="ItemUpdate" asp-route-itemId="@item.ItemID">
-								<i class="bi bi-pencil-square"></i>
-							</a>
-							<a class="btn btn-danger" asp-action="ItemDelete" asp-route-itemId="@item.ItemID">
-								<i class="bi bi-trash"></i>
-							</a>
-						</td>
+						<th>
+							ItemId
+						</th>
+						<th>
+							Group
+						</th>
+						<th>
+							Unit Of Measurement
+						</th>
+						<th>
+							Quantity
+						</th>
+						<th>
+							Price Without VAT
+						</th>
+						<th>
+							Status
+						</th>
+						<th>
+							Storage Location
+						</th>
+						<th>
+							Contact Person
+						</th>
+						<th></th>
 					</tr>
-				}
-			</tbody>
-		</table>
+				</thead>
+			</table>
+		</div>
 	</div>
 </div>
+
+@section Scripts {
+	<script src="~/js/item.js"></script>
+}

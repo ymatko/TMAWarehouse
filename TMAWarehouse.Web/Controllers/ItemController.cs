@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
 
@@ -14,17 +16,26 @@ namespace TMAWarehouse.Web.Controllers
         {
             _itemService = itemService;
         }
-        public async Task<IActionResult> ItemIndex()
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            IEnumerable<ItemDto>? list = Enumerable.Empty<ItemDto>();
-            ResponseDto? response = await _itemService.GetAllItemsAsync();
+            List<ItemDto> list;
+            ResponseDto response = _itemService.GetAllItemsAsync().GetAwaiter().GetResult();
             if (response != null && response.IsSuccess)
             {
-                list = JsonConvert.DeserializeObject<IEnumerable<ItemDto>>(Convert.ToString(response.Result));
+                list = JsonConvert.DeserializeObject<List<ItemDto>>(Convert.ToString(response.Result));
             }
-            return View(list);
+            else
+            {
+                list = new List<ItemDto>();
+            }
+            return Json(new { data = list });
         }
-        public async Task<IActionResult> ItemCreate()
+		public IActionResult ItemIndex()
+		{
+            return View();
+		}
+		public async Task<IActionResult> ItemCreate()
         {
             return View();
         }
