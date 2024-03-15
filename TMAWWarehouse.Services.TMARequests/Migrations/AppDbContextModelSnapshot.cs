@@ -57,7 +57,7 @@ namespace TMAWWarehouse.Services.TMARequests.Migrations
 
                     b.HasKey("RequestID");
 
-                    b.ToTable("TMARequests");
+                    b.ToTable("TMARequests", (string)null);
                 });
 #pragma warning restore 612, 618
         }

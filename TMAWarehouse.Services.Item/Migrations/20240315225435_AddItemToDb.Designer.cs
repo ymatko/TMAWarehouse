@@ -11,7 +11,7 @@ using TMAWarehouse.Services.Item.Data;
 namespace TMAWarehouse.Services.Item.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240313200851_AddItemToDb")]
+    [Migration("20240315225435_AddItemToDb")]
     partial class AddItemToDb
     {
         /// <inheritdoc />
@@ -37,6 +37,10 @@ namespace TMAWarehouse.Services.Item.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

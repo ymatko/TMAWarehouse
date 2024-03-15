@@ -6,8 +6,10 @@ namespace TMAWarehouse.Services.Item.Models
     {
         [Key]
         public int ItemID { get; set; }
+		[Required]
+        public string Name { get; set; }
 
-        [Required]
+		[Required]
         public string Group { get; set; }
 
         [Required]

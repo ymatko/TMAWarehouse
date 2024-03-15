@@ -37,6 +37,10 @@ namespace TMAWarehouse.Services.Item.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Photo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -61,7 +65,7 @@ namespace TMAWarehouse.Services.Item.Migrations
 
                     b.HasKey("ItemID");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Items");
                 });
 #pragma warning restore 612, 618
         }

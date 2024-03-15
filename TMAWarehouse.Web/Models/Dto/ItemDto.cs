@@ -6,7 +6,9 @@ namespace TMAWarehouse.Web.Models.Dto
     {
         public int ItemID { get; set; }
 
-        public string Group { get; set; }
+		public string Name { get; set; }
+
+		public string Group { get; set; }
 
         public string UnitOfMeasurement { get; set; }
 
