@@ -10,5 +10,6 @@
             DELETE
         }
         public static string ItemAPIBase { get; set; }
+        public static string OrderAPIBase { get; set; }
     }
 }

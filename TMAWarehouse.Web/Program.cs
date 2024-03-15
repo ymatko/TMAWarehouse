@@ -9,12 +9,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<IItemService, ItemService>();
+builder.Services.AddHttpClient<IOrderService, OrderService>();
 
 SD.ItemAPIBase = builder.Configuration["ServiceUrls:ItemAPI"];
+SD.ItemAPIBase = builder.Configuration["ServiceUrls:OrderAPI"];
 
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
