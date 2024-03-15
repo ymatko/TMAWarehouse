@@ -1,8 +1,20 @@
+using TMAWarehouse.Web.Services;
+using TMAWarehouse.Web.Services.IServices;
+using TMAWarehouse.Web.Utility;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<IItemService, ItemService>();
 
+SD.ItemAPIBase = builder.Configuration["ServiceUrls:ItemAPI"];
+
+
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<IItemService, ItemService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
