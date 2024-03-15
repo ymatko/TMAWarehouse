@@ -12,15 +12,24 @@ namespace TMAWarehouse.Web.Controllers
         {
             _orderService = orderService;
         }
-        public async Task<IActionResult> OrderIndex()
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            IEnumerable<TMARequestDto>? list = Enumerable.Empty<TMARequestDto>();
-            ResponseDto? response = await _orderService.GetAllOrdersAsync();
-            if (response != null && response.IsSuccess)
+			List<TMARequestDto> list;
+			ResponseDto? response = _orderService.GetAllOrdersAsync().GetAwaiter().GetResult();
+			if (response != null && response.IsSuccess)
+			{
+				list = JsonConvert.DeserializeObject<List<TMARequestDto>>(Convert.ToString(response.Result));
+			}
+            else
             {
-                list = JsonConvert.DeserializeObject<IEnumerable<TMARequestDto>>(Convert.ToString(response.Result));
+                list = new List<TMARequestDto>();
             }
-            return View(list);
+			return Json(new { data = list });
+		}
+        public IActionResult OrderIndex()
+        {
+            return View();
         }
         public async Task<IActionResult> OrderCreate()
         {
