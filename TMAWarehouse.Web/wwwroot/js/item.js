@@ -18,7 +18,7 @@ function loadDataTable() {
             { data: 'storageLocation', "width": "10%" },
             { data: 'contactPerson', "width": "15%" },
             {
-                data: 'ItemId',
+                data: 'itemID',
                 "render": function (data) {
                     return '<div class="btn-toolbar" role="toolbar">' +
                         '<div class="btn-group mr-2" role="group">' +

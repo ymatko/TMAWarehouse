@@ -34,15 +34,19 @@
                     <label class="control-label pt-2" style="font-size:20px;">Group</label>
                 </div>
                 <div class="col-10 pb-3">
-                    <input asp-for="Group" class="form-control" />
+                    <select asp-for="Group" class="form-select" asp-items="@ViewBag.ItemGroup">
+                        <option disabled selected>--Select Group--</option>
+                    </select>
                     <span asp-validation-for="Group" class="text-danger"></span>
                 </div>
                 <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Unit Of Measurement</label>
+                    <label class="control-label pt-2" style="font-size:20px;">Unit Of Measurement </label>
                 </div>
                 <div class="col-10 pb-3">
-                    <input asp-for="UnitOfMeasurement" class="form-control" />
-                    <span asp-validation-for="UnitOfMeasurement" class="text-danger"></span>
+                    <select asp-for="UnitOfMeasurement" class="form-select" asp-items="@ViewBag.Units">
+                        <option disabled selected>--Select Group--</option>
+                    </select>
+                    <span asp-validation-for="Group" class="text-danger"></span>
                 </div>
                 <div class="col-2">
                     <label class="control-label pt-2" style="font-size:20px;">Quantity</label>

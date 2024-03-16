@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
+using TMAWarehouse.Web.Utility;
+using static TMAWarehouse.Web.Utility.SD;
 
 namespace TMAWarehouse.Web.Controllers
 {
@@ -31,12 +34,14 @@ namespace TMAWarehouse.Web.Controllers
             }
             return Json(new { data = list });
         }
-		public IActionResult ItemIndex()
-		{
-            return View();
-		}
-		public async Task<IActionResult> ItemCreate()
+        public IActionResult ItemIndex()
         {
+            return View();
+        }
+        public async Task<IActionResult> ItemCreate()
+        {
+            ViewBag.ItemGroup = SD.ItemGroup;
+            ViewBag.Units = SD.Units;
             return View();
         }
         [HttpPost]
@@ -58,7 +63,8 @@ namespace TMAWarehouse.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 ItemDto? model = JsonConvert.DeserializeObject<ItemDto>(Convert.ToString(response.Result));
-
+                ViewBag.ItemGroup = SD.ItemGroup;
+                ViewBag.Units = SD.Units;
                 return View(model);
             }
             return NotFound();
