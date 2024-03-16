@@ -6,7 +6,9 @@
 
         public string EmployeeName { get; set; }
 
-        public string Group { get; set; }
+        public int ItemID { get; set; }
+
+        public ItemDto? Item { get; set; }
 
         public string UnitOfMeasurement { get; set; }
 

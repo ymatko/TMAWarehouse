@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using TMAWarehouse.Services.TMARequest.Models.Dto;
 
 namespace TMAWWarehouse.Services.TMARequests.Models
 {
@@ -11,7 +13,9 @@ namespace TMAWWarehouse.Services.TMARequests.Models
         public string EmployeeName { get; set; }
 
         [Required]
-        public string Group { get; set; }
+        public int ItemID { get; set; }
+        [NotMapped]
+        public ItemDto? Item { get; set; }
 
         [Required]
         public string UnitOfMeasurement { get; set; }

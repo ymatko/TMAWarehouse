@@ -10,7 +10,7 @@ function loadDataTable() {
         "columns": [
             { data: 'requestID', "width": "5%" },
             { data: 'employeeName', "width": "5%" },
-            { data: 'group', "width": "10%" },
+            { data: 'itemID', "width": "10%" },
             { data: 'unitOfMeasurement', "width": "10%" },
             { data: 'quantity', "width": "10%" },
             { data: 'priceWithoutVAT', "width": "10%" },
