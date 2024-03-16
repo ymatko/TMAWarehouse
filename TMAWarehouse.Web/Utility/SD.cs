@@ -44,6 +44,15 @@ namespace TMAWarehouse.Web.Utility
             new SelectListItem{Text=SD.Gram,Value=Gram},
         };
 
+        // Status of Order
 
+        public const string Status_Approved = "Approve";
+        public const string Status_Rejected = "Reject Request";
+
+        public static List<SelectListItem> Status = new List<SelectListItem>()
+        {
+            new SelectListItem{Text=SD.Status_Approved,Value=Status_Approved},
+            new SelectListItem{Text=SD.Status_Rejected,Value=Status_Rejected},
+        };
     }
 }

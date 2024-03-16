@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
+using TMAWarehouse.Web.Utility;
 
 namespace TMAWarehouse.Web.Controllers
 {
@@ -33,6 +34,8 @@ namespace TMAWarehouse.Web.Controllers
         }
         public async Task<IActionResult> OrderCreate()
         {
+            ViewBag.Status = SD.Status;
+            ViewBag.Units = SD.Units;
             return View();
         }
         [HttpPost]
@@ -54,7 +57,8 @@ namespace TMAWarehouse.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 TMARequestDto? model = JsonConvert.DeserializeObject<TMARequestDto>(Convert.ToString(response.Result));
-
+                ViewBag.Status = SD.Status;
+                ViewBag.Units = SD.Units;
                 return View(model);
             }
             return NotFound();

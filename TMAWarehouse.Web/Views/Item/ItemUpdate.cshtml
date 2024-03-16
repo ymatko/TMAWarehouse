@@ -40,13 +40,13 @@
                     <span asp-validation-for="Group" class="text-danger"></span>
                 </div>
                 <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Unit Of Measurement </label>
+                    <label class="control-label pt-2" style="font-size:20px;">Unit Of Measurement</label>
                 </div>
                 <div class="col-10 pb-3">
                     <select asp-for="UnitOfMeasurement" class="form-select" asp-items="@ViewBag.Units">
-                        <option disabled selected>--Select Group--</option>
+                        <option disabled selected>--Select Unit Of Measurement--</option>
                     </select>
-                    <span asp-validation-for="Group" class="text-danger"></span>
+                    <span asp-validation-for="UnitOfMeasurement" class="text-danger"></span>
                 </div>
                 <div class="col-2">
                     <label class="control-label pt-2" style="font-size:20px;">Quantity</label>
@@ -80,7 +80,7 @@
                     <label class="control-label pt-2" style="font-size:20px;">Contact Person</label>
                 </div>
                 <div class="col-10 pb-3">
-                    <input asp-for="ContactPerson" class="form-control" />
+                    <textarea asp-for="ContactPerson" class="form-control" rows="5"></textarea>
                     <span asp-validation-for="ContactPerson" class="text-danger"></span>
                 </div>
                 <div class="col-2">
