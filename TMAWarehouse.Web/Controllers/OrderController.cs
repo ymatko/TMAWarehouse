@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
 using TMAWarehouse.Web.Utility;
@@ -9,9 +11,11 @@ namespace TMAWarehouse.Web.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
-        public OrderController(IOrderService orderService)
+        private readonly IItemService _itemService;
+        public OrderController(IOrderService orderService, IItemService itemService)
         {
             _orderService = orderService;
+            _itemService = itemService;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -36,6 +40,24 @@ namespace TMAWarehouse.Web.Controllers
         {
             ViewBag.Status = SD.Status;
             ViewBag.Units = SD.Units;
+            List<ItemDto> items;
+            ResponseDto? response = await _itemService.GetAllItemsAsync();
+            if (response != null && response.IsSuccess)
+            {
+                items = JsonConvert.DeserializeObject<List<ItemDto>>(Convert.ToString(response.Result));
+            }
+            else
+            {
+                items = new List<ItemDto>();
+            }
+            ViewBag.Items = items.ConvertAll(u =>
+            {
+                return new SelectListItem()
+                {
+                    Text = u.Name,
+                    Value = u.ItemID.ToString()
+                };
+            });
             return View();
         }
         [HttpPost]
@@ -59,6 +81,24 @@ namespace TMAWarehouse.Web.Controllers
                 TMARequestDto? model = JsonConvert.DeserializeObject<TMARequestDto>(Convert.ToString(response.Result));
                 ViewBag.Status = SD.Status;
                 ViewBag.Units = SD.Units;
+                List<ItemDto> items;
+                ResponseDto? itemResponse = await _itemService.GetAllItemsAsync();
+                if (itemResponse != null && itemResponse.IsSuccess)
+                {
+                    items = JsonConvert.DeserializeObject<List<ItemDto>>(Convert.ToString(itemResponse.Result));
+                }
+                else
+                {
+                    items = new List<ItemDto>();
+                }
+                ViewBag.Items = items.ConvertAll(u =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = u.Name,
+                        Value = u.ItemID.ToString()
+                    };
+                });
                 return View(model);
             }
             return NotFound();
