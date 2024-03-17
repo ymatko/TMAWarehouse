@@ -52,6 +52,7 @@ namespace TMAWarehouse.Web.Controllers
                 ResponseDto? response = await _itemService.CreateItemAsync(itemDto);
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "Item created successfully";
                     return RedirectToAction(nameof(ItemIndex));
                 }
             }
@@ -88,7 +89,7 @@ namespace TMAWarehouse.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 ItemDto? model = JsonConvert.DeserializeObject<ItemDto>(Convert.ToString(response.Result));
-
+                TempData["success"] = "Item updated successfully";
                 return View(model);
             }
             return NotFound();
@@ -99,6 +100,7 @@ namespace TMAWarehouse.Web.Controllers
             ResponseDto? response = await _itemService.DeleteItemAsync(model.ItemID);
             if (response != null && response.IsSuccess)
             {
+                TempData["success"] = "Item deleted successfully";
                 return RedirectToAction(nameof(ItemIndex));
             }
             return View(model);

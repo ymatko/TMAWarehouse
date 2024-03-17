@@ -68,6 +68,7 @@ namespace TMAWarehouse.Web.Controllers
                 ResponseDto? response = await _orderService.CreateOrderAsync(model);
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "Order created successfully";
                     return RedirectToAction(nameof(OrderIndex));
                 }
             }
@@ -111,6 +112,7 @@ namespace TMAWarehouse.Web.Controllers
                 ResponseDto? response = await _orderService.UpdateOrderAsync(model);
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "Order updated successfully";
                     return RedirectToAction(nameof(OrderIndex));
                 }
             }
@@ -133,6 +135,7 @@ namespace TMAWarehouse.Web.Controllers
             ResponseDto? response = await _orderService.DeleteOrderAsync(model.RequestID);
             if (response != null && response.IsSuccess)
             {
+                TempData["success"] = "Order deleted successfully";
                 return RedirectToAction(nameof(OrderIndex));
             }
             return View(model);
@@ -149,11 +152,13 @@ namespace TMAWarehouse.Web.Controllers
                     var item = JsonConvert.DeserializeObject<ItemDto>(Convert.ToString(itemResponse.Result));
                     if(item.Quantity < order.Quantity)
                     {
+                        TempData["warning"] = "Insufficient quantity of goods";
                         return RedirectToAction(nameof(OrderIndex));
                     }
                     await _itemService.UpdateItemAsync(item);
                     order.Status = SD.Status_Approved;
                     await _orderService.UpdateOrderAsync(order);
+                    TempData["success"] = "Order approved successfully";
                     return RedirectToAction(nameof(OrderIndex));
                 }
                 return NotFound();
