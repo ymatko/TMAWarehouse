@@ -17,16 +17,43 @@ namespace TMAWarehouse.Service.Auth.Service
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        public Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
+        public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
         {
-            throw new NotImplementedException();
+            var user = _db.Users.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDto.UserName.ToLower());
+
+            bool isValid = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
+
+            if(user == null && !isValid)
+            {
+                return new LoginResponseDto()
+                {
+                    User = null,
+                    Token = ""
+                };
+                //Jwt
+            }
+            UserDto userDto = new()
+            {
+                Email = user.Email,
+                Id = user.Id,
+                Name = user.UserName,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            LoginResponseDto loginResponseDto = new LoginResponseDto()
+            {
+                User = userDto,
+                Token = ""
+            };
+
+            return loginResponseDto;
         }
 
         public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {
             IdentityUser user = new()
             {
-                UserName = registrationRequestDto.Name,
+                UserName = registrationRequestDto.Email,
                 Email = registrationRequestDto.Email,
                 NormalizedUserName = registrationRequestDto.Name.ToUpper(),
                 NormalizedEmail = registrationRequestDto.Email.ToUpper(),
