@@ -18,10 +18,11 @@ function loadDataTable() {
             { data: 'status', "width": "20%" },
             {
                 data: 'requestID',
-                "render": function (data) {
+                "render": function (data, type, row) {
+                    var disabled = row.status === 'Approve' ? 'disabled' : '';
                     return '<div class="btn-toolbar" role="toolbar">' +
                         '<div class="btn-group mr-2" role="group">' +
-                        '<a href="/order/OrderUpdate?orderId=' + data + '" class="btn btn-dark"><i class="bi bi-pencil-square"></i></a>' +
+                        '<a href="/order/ConfirmOrder?orderId=' + data + '" class="btn btn-dark ' + disabled + '"><i class="bi bi-check-circle-fill"></i>' +
                         '</div>' +
                         '<div class="btn-group" role="group">' +
                         '<a href="/order/OrderDelete?orderId=' + data + '" class="btn btn-danger"><i class="bi bi-trash"></i></a>' +

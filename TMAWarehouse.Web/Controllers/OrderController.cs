@@ -137,5 +137,28 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(model);
         }
+        public async Task<IActionResult> ConfirmOrder(int orderId)
+        {
+            ResponseDto? response = await _orderService.GetOrderAsync(orderId);
+            if (response != null && response.IsSuccess)
+            {
+                var order = JsonConvert.DeserializeObject<TMARequestDto>(Convert.ToString(response.Result));
+                ResponseDto? itemResponse = await _itemService.GetItemAsync(order.ItemID);
+                if (itemResponse != null && itemResponse.IsSuccess)
+                {
+                    var item = JsonConvert.DeserializeObject<ItemDto>(Convert.ToString(itemResponse.Result));
+                    if(item.Quantity < order.Quantity)
+                    {
+                        return RedirectToAction(nameof(OrderIndex));
+                    }
+                    await _itemService.UpdateItemAsync(item);
+                    order.Status = SD.Status_Approved;
+                    await _orderService.UpdateOrderAsync(order);
+                    return RedirectToAction(nameof(OrderIndex));
+                }
+                return NotFound();
+            }
+            return NotFound();
+        }
     }
 }
