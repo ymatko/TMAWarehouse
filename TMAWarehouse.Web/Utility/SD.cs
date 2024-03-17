@@ -46,8 +46,8 @@ namespace TMAWarehouse.Web.Utility
 
         // Status of Order
 
-        public const string Status_Approved = "Approve";
-        public const string Status_Rejected = "Reject Request";
+        public const string Status_Approved = "Approved";
+        public const string Status_Rejected = "Rejected";
 
         public static List<SelectListItem> Status = new List<SelectListItem>()
         {

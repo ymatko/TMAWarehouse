@@ -63,8 +63,10 @@ namespace TMAWarehouse.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> OrderCreate(TMARequestDto model)
         {
+            ModelState.Remove("Comment");
             if (ModelState.IsValid)
             {
+                model.Comment = "";
                 ResponseDto? response = await _orderService.CreateOrderAsync(model);
                 if (response != null && response.IsSuccess)
                 {
@@ -155,6 +157,7 @@ namespace TMAWarehouse.Web.Controllers
                         TempData["warning"] = "Insufficient quantity of goods";
                         return RedirectToAction(nameof(OrderIndex));
                     }
+                    item.Quantity -= order.Quantity;
                     await _itemService.UpdateItemAsync(item);
                     order.Status = SD.Status_Approved;
                     await _orderService.UpdateOrderAsync(order);
@@ -162,6 +165,33 @@ namespace TMAWarehouse.Web.Controllers
                     return RedirectToAction(nameof(OrderIndex));
                 }
                 return NotFound();
+            }
+            return NotFound();
+        }
+
+        public async Task<IActionResult> RejectOrder(int orderId)
+        {
+            ResponseDto? response = await _orderService.GetOrderAsync(orderId);
+            if (response != null && response.IsSuccess)
+            {
+                TMARequestDto? model = JsonConvert.DeserializeObject<TMARequestDto>(Convert.ToString(response.Result));
+
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectOrder(TMARequestDto model)
+        {
+            ResponseDto? response = await _orderService.GetOrderAsync(model.RequestID);
+            if (response != null && response.IsSuccess)
+            {
+                var order = JsonConvert.DeserializeObject<TMARequestDto>(Convert.ToString(response.Result));
+                order.Comment = model.Comment;
+                order.Status = SD.Status_Rejected;
+                await _orderService.UpdateOrderAsync(order);
+                return RedirectToAction(nameof(OrderIndex));
             }
             return NotFound();
         }

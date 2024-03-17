@@ -19,17 +19,17 @@ function loadDataTable() {
             {
                 data: 'requestID',
                 "render": function (data, type, row) {
-                    var disabled = row.status === 'Approve' ? 'disabled' : '';
+                    var disabled = row.status !== 'New' ? 'disabled btn-dark' : '';
                     return '<div class="btn-toolbar" role="toolbar">' +
                         '<div class="btn-group mr-2" role="group">' +
-                        '<a href="/order/ConfirmOrder?orderId=' + data + '" class="btn btn-dark ' + disabled + '"><i class="bi bi-check-circle-fill"></i>' +
+                        '<a href="/order/ConfirmOrder?orderId=' + data + '" class="btn btn-success ' + disabled + '"><i class="bi bi-check-circle-fill"></i>' +
                         '</div>' +
                         '<div class="btn-group" role="group">' +
-                        '<a href="/order/OrderDelete?orderId=' + data + '" class="btn btn-danger"><i class="bi bi-trash"></i></a>' +
+                        '<a href="/order/RejectOrder?orderId=' + data + '" class="btn btn-danger ' + disabled + '"><i class="bi bi-x-circle-fill"></i></a>' +
                         '</div>' +
                         '</div>';
                 },
-                "width": "30%"
+                "width": "20%"
             }
         ]
     });

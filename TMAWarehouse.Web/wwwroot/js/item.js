@@ -22,14 +22,14 @@ function loadDataTable() {
                 "render": function (data) {
                     return '<div class="btn-toolbar" role="toolbar">' +
                         '<div class="btn-group mr-2" role="group">' +
-                        '<a href="/item/ItemUpdate?itemID=' + data + '" class="btn btn-dark"><i class="bi bi-pencil-square"></i></a>' +
+                        '<a href="/item/ItemUpdate?itemID=' + data + '" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>' +
                         '</div>' +
                         '<div class="btn-group" role="group">' +
                         '<a href="/item/ItemDelete?itemID=' + data + '" class="btn btn-danger"><i class="bi bi-trash"></i></a>' +
                         '</div>' +
                         '</div>';
                 },
-                "width": "25%"
+                "width": "20%"
             }
         ]
     });
