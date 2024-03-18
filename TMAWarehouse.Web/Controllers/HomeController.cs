@@ -1,22 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using TMAWarehouse.Web.Models;
+using TMAWarehouse.Web.Utility;
 
 namespace TMAWarehouse.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor contextAccessor)
         {
             _logger = logger;
+            _contextAccessor = contextAccessor;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            if (_contextAccessor.HttpContext.User.IsInRole(SD.RoleEmployee))
+            {
+                return RedirectToAction("ItemIndexHome", "Item");
+            }
+			return View();
+		}
 
         public IActionResult Privacy()
         {

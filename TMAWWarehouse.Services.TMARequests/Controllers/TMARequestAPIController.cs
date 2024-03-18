@@ -62,7 +62,6 @@ namespace TMAWWarehouse.Services.TMARequests.Controllers
 
         [HttpPost("CreateTMARequest")]
         [Tags("Creators")]
-        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto?> Post([FromBody] TMARequestDto requestDto)
         {
             try

@@ -16,9 +16,13 @@ namespace TMAWarehouse.Web.Controllers
     public class ItemController : Controller
     {
         private readonly IItemService _itemService;
-        public ItemController(IItemService itemService)
+        private readonly IOrderService _orderService;
+        private readonly IHttpContextAccessor _contextAccessor;
+        public ItemController(IItemService itemService, IOrderService orderService, IHttpContextAccessor contextAccessor)
         {
             _itemService = itemService;
+            _orderService = orderService;
+            _contextAccessor = contextAccessor;
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -39,7 +43,52 @@ namespace TMAWarehouse.Web.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleEmployee)]
+        public IActionResult ItemIndexHome()
+		{
+			return View();
+		}
+
+        [Authorize(Roles = SD.RoleEmployee)]
+        public async Task<IActionResult> MakeOrder(int itemId)
+        {
+            ResponseDto? response = await _itemService.GetItemAsync(itemId);
+            if (response != null && response.IsSuccess)
+            {
+                ItemDto? model = JsonConvert.DeserializeObject<ItemDto>(Convert.ToString(response.Result));
+                model.ContactPerson = string.Empty;
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = SD.RoleEmployee)]
+        public async Task<IActionResult> MakeOrder(ItemDto itemDto)
+        {
+            if (ModelState.IsValid)
+            {
+                TMARequestDto? newOrder = new()
+                {
+                    EmployeeName = _contextAccessor.HttpContext.User.Identity.Name,
+                    ItemID = itemDto.ItemID,
+                    UnitOfMeasurement = itemDto.UnitOfMeasurement,
+                    Quantity = itemDto.Quantity,
+                    PriceWithoutVAT = itemDto.PriceWithoutVAT,
+                    Comment = itemDto.ContactPerson,
+                    Status = "New"
+                };
+                ResponseDto? response = await _orderService.CreateOrderAsync(newOrder);
+                if (response != null && response.IsSuccess)
+                {
+                    TempData["success"] = "Order created successfully";
+                    return RedirectToAction("ItemIndexHome");
+                }
+            }
+            return NotFound();
+        }
+
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> ItemCreate()
         {
             ViewBag.ItemGroup = SD.ItemGroup;
@@ -47,7 +96,7 @@ namespace TMAWarehouse.Web.Controllers
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> ItemCreate(ItemDto itemDto)
         {
             if (ModelState.IsValid)
@@ -61,7 +110,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(itemDto);
         }
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> ItemUpdate(int itemId)
         {
             ResponseDto? response = await _itemService.GetItemAsync(itemId);
@@ -75,7 +124,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> ItemUpdate(ItemDto itemDto)
         {
             if (ModelState.IsValid)
@@ -89,7 +138,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(itemDto);
         }
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> ItemDelete(int itemId)
         {
             ResponseDto? response = await _itemService.GetItemAsync(itemId);
@@ -101,7 +150,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> ItemDelete(ItemDto model)
         {
             ResponseDto? response = await _itemService.DeleteItemAsync(model.ItemID);

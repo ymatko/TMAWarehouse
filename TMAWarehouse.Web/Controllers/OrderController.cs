@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Reflection;
 using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
 using TMAWarehouse.Web.Utility;
@@ -37,7 +38,7 @@ namespace TMAWarehouse.Web.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> OrderCreate()
         {
             ViewBag.Status = SD.Status;
@@ -63,7 +64,7 @@ namespace TMAWarehouse.Web.Controllers
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> OrderCreate(TMARequestDto model)
         {
             ModelState.Remove("Comment");
@@ -79,7 +80,8 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "ADMIN")]
+
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> OrderUpdate(int orderId)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(orderId);
@@ -111,7 +113,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> OrderUpdate(TMARequestDto model)
         {
             if (ModelState.IsValid)
@@ -125,7 +127,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> OrderDelete(int orderId)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(orderId);
@@ -138,7 +140,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> OrderDelete(TMARequestDto model)
         {
             ResponseDto? response = await _orderService.DeleteOrderAsync(model.RequestID);
@@ -149,7 +151,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> ConfirmOrder(int orderId)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(orderId);
@@ -176,7 +178,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return NotFound();
         }
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> RejectOrder(int orderId)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(orderId);
@@ -190,7 +192,7 @@ namespace TMAWarehouse.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin)]
         public async Task<IActionResult> RejectOrder(TMARequestDto model)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(model.RequestID);
