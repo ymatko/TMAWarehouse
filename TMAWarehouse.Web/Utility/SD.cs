@@ -55,5 +55,11 @@ namespace TMAWarehouse.Web.Utility
             new SelectListItem{Text=SD.Status_Approved,Value=Status_Approved},
             new SelectListItem{Text=SD.Status_Rejected,Value=Status_Rejected},
         };
+
+        //Role
+
+        public const string RoleAdmin = "ADMIN";
+        public const string RoleEmployee = "EMPLOYEE";
+        public const string RoleCoordinator = "COORDINATOR";
     }
 }

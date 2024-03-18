@@ -17,7 +17,7 @@ namespace TMAWarehouse.Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = registrationRequestDto,
-                Url = SD.AuthAPIBase + "/api/AssignRole"
+                Url = SD.AuthAPIBase + "/api/auth/AssignRole"
             });
         }
 
@@ -27,7 +27,7 @@ namespace TMAWarehouse.Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = loginRequestDto,
-                Url = SD.AuthAPIBase + "/api/login"
+                Url = SD.AuthAPIBase + "/api/auth/login"
             });
         }
 
@@ -37,7 +37,7 @@ namespace TMAWarehouse.Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = registrationRequestDto,
-                Url = SD.AuthAPIBase + "/api/register"
+                Url = SD.AuthAPIBase + "/api/auth/register"
             });
         }
     }
