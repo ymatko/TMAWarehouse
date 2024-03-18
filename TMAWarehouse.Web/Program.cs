@@ -10,6 +10,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<IItemService, ItemService>();
 builder.Services.AddHttpClient<IOrderService, OrderService>();
+builder.Services.AddHttpClient<IAuthService, AuthService>();
 
 SD.ItemAPIBase = builder.Configuration["ServiceUrls:ItemAPI"];
 SD.OrderAPIBase = builder.Configuration["ServiceUrls:OrderAPI"];
@@ -19,6 +20,7 @@ SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
