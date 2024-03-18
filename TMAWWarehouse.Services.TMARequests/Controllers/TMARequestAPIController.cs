@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TMAWWarehouse.Services.TMARequests.Models.Dto;
 namespace TMAWWarehouse.Services.TMARequests.Controllers
 {
     [Route("Lists/Orders")]
+    [Authorize]
     [ApiController]
     public class TMARequestAPIController : ControllerBase
     {
