@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
@@ -20,6 +21,25 @@ namespace TMAWarehouse.Web.Controllers
             LoginRequestDto loginRequestDto = new();
             return View(loginRequestDto);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginRequestDto loginDto)
+        {
+            ResponseDto? result = await _authService.LoginAsync(loginDto);
+
+            if (result != null && result.IsSuccess)
+            {
+                LoginResponseDto loginResponseDto = JsonConvert.DeserializeObject<LoginResponseDto>(Convert.ToString(result.Result));
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["error"] = result.Message;
+                return View(loginDto);
+            }
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
