@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ItemDto>
+
+<div class="card border-0 mt-4">
+	<div class="card-body p-4">
+		<div>
+			<table id="tblData" class="table table-bordered table-striped pt-3" style="width:100%">
+				<thead>
+					<tr>
+						<th>
+							ItemId
+						</th>
+						<th>
+							Name
+						</th>
+						<th>
+							Group
+						</th>
+						<th>
+							Unit Of Measurement
+						</th>
+						<th>
+							Quantity
+						</th>
+						<th>
+							Price Without VAT
+						</th>
+						<th>
+							Status
+						</th>
+						<th>
+							Storage Location
+						</th>
+						<th>
+							Contact Person
+						</th>
+						<th>
+							Edit / Remove
+						</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<br />
+		<div class="row pb-3">
+			<div class="col-6">
+			</div>
+			<div class="col-6 text-end">
+				<a asp-action="ItemCreate" class="btn btn-outline-success"><i class="bi bi-plus-square"></i> Create New Item</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="~/js/item.js"></script>
+}

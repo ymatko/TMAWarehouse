@@ -1,98 +1,100 @@
 ﻿@model ItemDto
 
 <form asp-action="ItemCreate">
-	<div class="card shadow border-0 mt-4">
-		<div class="card-header bg-gradient ml-0 py-3">
-			<div class="row">
-				<div class="col-12 text-center">
-					<h1 class="text-dark">Create Item</h1>
-				</div>
-			</div>
-		</div>
-		<div class="card-body p-4">
-			<div class="row pb-3">
-				<div class="col-6">
-				</div>
-			</div>
-
-            <div class="row">
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Name</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Group</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <select asp-for="Group" class="form-select" asp-items="@ViewBag.ItemGroup">
-                        <option disabled selected>--Select Group--</option>
-                    </select>
-                    <span asp-validation-for="Group" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Unit Of Measurement</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <select asp-for="UnitOfMeasurement" class="form-select" asp-items="@ViewBag.Units">
-                        <option disabled selected>--Select Unit Of Measurement--</option>
-                    </select>
-                    <span asp-validation-for="UnitOfMeasurement" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Quantity</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Quantity" class="form-control" />
-                    <span asp-validation-for="Quantity" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Price Without VAT</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="PriceWithoutVAT" class="form-control" />
-                    <span asp-validation-for="PriceWithoutVAT" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Status</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Status" class="form-control" />
-                    <span asp-validation-for="Status" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Storage Location</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="StorageLocation" class="form-control" />
-                    <span asp-validation-for="StorageLocation" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Contact Person</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <textarea asp-for="ContactPerson" class="form-control" rows="5"></textarea>
-                    <span asp-validation-for="ContactPerson" class="text-danger"></span>
-                </div>
-                <div class="col-2">
-                    <label class="control-label pt-2" style="font-size:20px;">Photo</label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Photo" class="form-control" />
-                    <span asp-validation-for="Photo" class="text-danger"></span>
-                </div>
-                <div class="col-5 offset-2">
-                    <a asp-action="ItemIndex" class="btn-outline-dark btn form-control ">Back to List</a>
-                </div>
-                <div class="col-5">
-                    <input type="submit" value="Create" class="btn btn-success form-control" />
+	<div class="container">
+        <div class="card shadow border-0 mt-4">
+            <div class="card-header bg-gradient ml-0 py-3">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h1 class="text-dark">Create Item</h1>
+                    </div>
                 </div>
             </div>
+            <div class="card-body p-4">
+                <div class="row pb-3">
+                    <div class="col-6">
+                    </div>
+                </div>
 
-		</div>
-	</div>
+                <div class="row">
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Name</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Group</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <select asp-for="Group" class="form-select" asp-items="@ViewBag.ItemGroup">
+                            <option disabled selected>--Select Group--</option>
+                        </select>
+                        <span asp-validation-for="Group" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Unit Of Measurement</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <select asp-for="UnitOfMeasurement" class="form-select" asp-items="@ViewBag.Units">
+                            <option disabled selected>--Select Unit Of Measurement--</option>
+                        </select>
+                        <span asp-validation-for="UnitOfMeasurement" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Quantity</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <input asp-for="Quantity" class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Price Without VAT</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <input asp-for="PriceWithoutVAT" class="form-control" />
+                        <span asp-validation-for="PriceWithoutVAT" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Status</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Storage Location</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <input asp-for="StorageLocation" class="form-control" />
+                        <span asp-validation-for="StorageLocation" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Contact Person</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <textarea asp-for="ContactPerson" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                    </div>
+                    <div class="col-2">
+                        <label class="control-label pt-2" style="font-size:20px;">Photo</label>
+                    </div>
+                    <div class="col-10 pb-3">
+                        <input asp-for="Photo" class="form-control" />
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+                    <div class="col-5 offset-2">
+                        <a asp-action="ItemIndex" class="btn-outline-dark btn form-control ">Back to List</a>
+                    </div>
+                    <div class="col-5">
+                        <input type="submit" value="Create" class="btn btn-success form-control" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </form>
 
 @section Scripts {
