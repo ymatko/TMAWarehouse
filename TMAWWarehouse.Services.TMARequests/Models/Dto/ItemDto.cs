@@ -18,10 +18,10 @@ namespace TMAWarehouse.Services.TMARequest.Models.Dto
 
         public string Status { get; set; }
 
-        public string StorageLocation { get; set; }
+        public string? StorageLocation { get; set; }
 
-        public string ContactPerson { get; set; }
+        public string? ContactPerson { get; set; }
 
-        public string Photo { get; set; }
+        public string? Photo { get; set; }
     }
 }

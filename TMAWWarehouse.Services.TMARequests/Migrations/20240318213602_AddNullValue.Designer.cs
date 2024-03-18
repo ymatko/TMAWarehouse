@@ -2,17 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TMAWarehouse.Services.Item.Data;
+using TMAWWarehouse.Services.TMARequests.Data;
 
 #nullable disable
 
-namespace TMAWarehouse.Services.Item.Migrations
+namespace TMAWWarehouse.Services.TMARequests.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318213602_AddNullValue")]
+    partial class AddNullValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,27 +24,23 @@ namespace TMAWarehouse.Services.Item.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TMAWarehouse.Services.Item.Models.Item", b =>
+            modelBuilder.Entity("TMAWWarehouse.Services.TMARequests.Models.TMARequest", b =>
                 {
-                    b.Property<int>("ItemID")
+                    b.Property<int>("RequestID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestID"));
 
-                    b.Property<string>("ContactPerson")
+                    b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Group")
+                    b.Property<string>("EmployeeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ItemID")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PriceWithoutVAT")
                         .HasColumnType("decimal(18,2)");
@@ -50,19 +49,15 @@ namespace TMAWarehouse.Services.Item.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StorageLocation")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UnitOfMeasurement")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ItemID");
+                    b.HasKey("RequestID");
 
-                    b.ToTable("Items");
+                    b.ToTable("TMARequests");
                 });
 #pragma warning restore 612, 618
         }

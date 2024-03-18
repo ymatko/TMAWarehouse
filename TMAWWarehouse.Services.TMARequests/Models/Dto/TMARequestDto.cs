@@ -19,8 +19,8 @@ namespace TMAWWarehouse.Services.TMARequests.Models.Dto
 
         public decimal PriceWithoutVAT { get; set; }
 
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
     }
 }

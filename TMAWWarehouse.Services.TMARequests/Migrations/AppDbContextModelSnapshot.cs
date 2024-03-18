@@ -30,7 +30,6 @@ namespace TMAWWarehouse.Services.TMARequests.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestID"));
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmployeeName")
@@ -47,7 +46,6 @@ namespace TMAWWarehouse.Services.TMARequests.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UnitOfMeasurement")
@@ -56,7 +54,7 @@ namespace TMAWWarehouse.Services.TMARequests.Migrations
 
                     b.HasKey("RequestID");
 
-                    b.ToTable("TMARequests", (string)null);
+                    b.ToTable("TMARequests");
                 });
 #pragma warning restore 612, 618
         }
