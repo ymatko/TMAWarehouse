@@ -13,6 +13,7 @@ builder.Services.AddHttpClient<IOrderService, OrderService>();
 
 SD.ItemAPIBase = builder.Configuration["ServiceUrls:ItemAPI"];
 SD.OrderAPIBase = builder.Configuration["ServiceUrls:OrderAPI"];
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 
 
 builder.Services.AddScoped<IBaseService, BaseService>();

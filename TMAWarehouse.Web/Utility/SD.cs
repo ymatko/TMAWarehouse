@@ -13,6 +13,7 @@ namespace TMAWarehouse.Web.Utility
         }
         public static string ItemAPIBase { get; set; }
         public static string OrderAPIBase { get; set; }
+        public static string AuthAPIBase { get; set; }
 
         // Item Group
         public const string Group1 = "Group 1";
