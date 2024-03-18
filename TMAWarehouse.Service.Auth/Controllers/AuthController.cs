@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TMAWarehouse.Service.Auth.Models.Dto;
 using TMAWarehouse.Service.Auth.Service.IService;

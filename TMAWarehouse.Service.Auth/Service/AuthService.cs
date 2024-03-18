@@ -44,7 +44,7 @@ namespace TMAWarehouse.Service.Auth.Service
 
             bool isValid = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
 
-            if(user == null && !isValid)
+            if(user == null || !isValid)
             {
                 return new LoginResponseDto()
                 {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using TMAWarehouse.Services.Item.Models.Dto;
 namespace TMAWarehouse.Services.Item.Controllers
 {
     [Route("Lists/Items")]
+    [Authorize]
     [ApiController]
     public class ItemAPIController : ControllerBase
     {
