@@ -16,7 +16,7 @@ SD.ItemAPIBase = builder.Configuration["ServiceUrls:ItemAPI"];
 SD.OrderAPIBase = builder.Configuration["ServiceUrls:OrderAPI"];
 SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 
-
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IOrderService, OrderService>();

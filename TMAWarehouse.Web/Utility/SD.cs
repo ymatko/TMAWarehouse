@@ -61,5 +61,7 @@ namespace TMAWarehouse.Web.Utility
         public const string RoleAdmin = "ADMIN";
         public const string RoleEmployee = "EMPLOYEE";
         public const string RoleCoordinator = "COORDINATOR";
+
+        public const string TokenCookie = "JWTToken";
     }
 }
