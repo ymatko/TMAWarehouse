@@ -60,6 +60,7 @@ namespace TMAWarehouse.Services.Item.Controllers
 
         [HttpPost("CreateItem")]
         [Tags("Creators")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto?> Post([FromBody] ItemDto itemDto)
         {
             try
@@ -79,6 +80,7 @@ namespace TMAWarehouse.Services.Item.Controllers
 
         [HttpPut("UpdateItem")]
         [Tags("Updaters")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto?> Put([FromBody] ItemDto itemDto)
         {
             try
@@ -98,6 +100,7 @@ namespace TMAWarehouse.Services.Item.Controllers
 
         [HttpDelete("DeleteItem/{id:int}")]
         [Tags("Deleters")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto?> Delete(int id)
         {
             try

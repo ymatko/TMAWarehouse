@@ -62,6 +62,7 @@ namespace TMAWWarehouse.Services.TMARequests.Controllers
 
         [HttpPost("CreateTMARequest")]
         [Tags("Creators")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto?> Post([FromBody] TMARequestDto requestDto)
         {
             try
@@ -81,6 +82,7 @@ namespace TMAWWarehouse.Services.TMARequests.Controllers
 
         [HttpPut("UpdateTMARequest")]
         [Tags("Updaters")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto?> Put([FromBody] TMARequestDto itemDto)
         {
             try
@@ -100,6 +102,7 @@ namespace TMAWWarehouse.Services.TMARequests.Controllers
 
         [HttpDelete("DeleteTMARequest/{id:int}")]
         [Tags("Deleters")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ResponseDto?> Delete(int id)
         {
             try

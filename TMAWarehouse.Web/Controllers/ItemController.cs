@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -38,6 +39,7 @@ namespace TMAWarehouse.Web.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> ItemCreate()
         {
             ViewBag.ItemGroup = SD.ItemGroup;
@@ -45,6 +47,7 @@ namespace TMAWarehouse.Web.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> ItemCreate(ItemDto itemDto)
         {
             if (ModelState.IsValid)
@@ -58,6 +61,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(itemDto);
         }
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> ItemUpdate(int itemId)
         {
             ResponseDto? response = await _itemService.GetItemAsync(itemId);
@@ -71,6 +75,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> ItemUpdate(ItemDto itemDto)
         {
             if (ModelState.IsValid)
@@ -78,23 +83,25 @@ namespace TMAWarehouse.Web.Controllers
                 ResponseDto? response = await _itemService.UpdateItemAsync(itemDto);
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "Item updated successfully";
                     return RedirectToAction(nameof(ItemIndex));
                 }
             }
             return View(itemDto);
         }
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> ItemDelete(int itemId)
         {
             ResponseDto? response = await _itemService.GetItemAsync(itemId);
             if (response != null && response.IsSuccess)
             {
                 ItemDto? model = JsonConvert.DeserializeObject<ItemDto>(Convert.ToString(response.Result));
-                TempData["success"] = "Item updated successfully";
                 return View(model);
             }
             return NotFound();
         }
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> ItemDelete(ItemDto model)
         {
             ResponseDto? response = await _itemService.DeleteItemAsync(model.ItemID);
