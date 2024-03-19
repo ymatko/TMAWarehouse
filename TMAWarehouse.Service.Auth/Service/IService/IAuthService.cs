@@ -9,5 +9,8 @@ namespace TMAWarehouse.Service.Auth.Service.IService
         Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto);
         Task<bool> AssignRole(string email, string roleName);
         Task<IEnumerable<IdentityUser>> GetUsers();
+        Task<IdentityUser> GetUser(string userId);
+        Task<IdentityUser> ChangeRole(string email, string roleName);
+        Task<string> GetRole(string userId);
     }
 }

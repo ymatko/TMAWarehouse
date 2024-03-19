@@ -31,6 +31,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="OrderIndex">Orders</a>
                             </li>
+                            @if (User.IsInRole(SD.RoleAdmin))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="UserIndex">Users</a>
+                                </li>
+                            }
                         }
                     </ul>
                     <ul class="navbar-nav">

@@ -1,10 +1,11 @@
-﻿using TMAWarehouse.Web.Models.Dto;
+﻿using Microsoft.AspNetCore.Identity;
+using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
 using TMAWarehouse.Web.Utility;
 
 namespace TMAWarehouse.Web.Services
 {
-    public class AuthService : IAuthService
+	public class AuthService : IAuthService
     {
         private readonly IBaseService _baseService;
         public AuthService(IBaseService baseService)
@@ -18,6 +19,34 @@ namespace TMAWarehouse.Web.Services
                 ApiType = SD.ApiType.POST,
                 Data = registrationRequestDto,
                 Url = SD.AuthAPIBase + "/api/auth/AssignRole"
+            });
+        }
+
+		public async Task<ResponseDto?> GetRole(string userId)
+		{
+			return await _baseService.SendAsync(new RequestDto()
+			{
+				ApiType = SD.ApiType.GET,
+                Data = userId,
+				Url = SD.AuthAPIBase + "/api/auth/GetRole"
+			});
+		}
+
+		public async Task<ResponseDto?> GetUser(string userId)
+		{
+			return await _baseService.SendAsync(new RequestDto()
+			{
+				ApiType = SD.ApiType.GET,
+				Url = SD.AuthAPIBase + "/api/auth/GetUser/" + userId
+			});
+		}
+
+		public async Task<ResponseDto?> GetUsers()
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.AuthAPIBase + "/api/auth/GetAllUsers"
             });
         }
 
@@ -40,5 +69,14 @@ namespace TMAWarehouse.Web.Services
                 Url = SD.AuthAPIBase + "/api/auth/register"
             }, withBearer: false);
         }
-    }
+		public async Task<ResponseDto?> SetRole(SetRoleRequestDto data)
+		{
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = data,
+                Url = SD.AuthAPIBase + "/api/auth/SetRole"
+			});
+		}
+	}
 }

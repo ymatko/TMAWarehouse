@@ -9,6 +9,11 @@ using TMAWarehouse.Web.Models.Dto;
 using TMAWarehouse.Web.Services.IServices;
 using TMAWarehouse.Web.Utility;
 using System.IdentityModel.Tokens.Jwt;
+using TMAWarehouse.Web.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http.Metadata;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TMAWarehouse.Web.Controllers
 {
@@ -123,6 +128,60 @@ namespace TMAWarehouse.Web.Controllers
 
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        }
+
+		public IActionResult UserIndex()
+		{
+			return View();
+		}
+
+		[HttpGet]
+        public IActionResult GetAll()
+        {
+            List<IdentityUser> list;
+            ResponseDto response = _authService.GetUsers().GetAwaiter().GetResult();
+            if (response != null && response.IsSuccess)
+            {
+                list = JsonConvert.DeserializeObject<List<IdentityUser>>(Convert.ToString(response.Result));
+            }
+            else
+            {
+                list = new List<IdentityUser>();
+            }
+            return Json(new { data = list });
+        }
+        [Authorize(Roles = SD.RoleAdmin)]
+        public async Task<string> GetRole(string userId)
+		{
+			ResponseDto? result = await _authService.GetRole(userId);
+
+			if (result != null && result.IsSuccess)
+			{
+				return result.Result.ToString();
+			}
+			else
+			{
+				return result?.Message ?? "An error occurred.";
+			}
+		}
+        [HttpGet]
+        [Authorize(Roles = SD.RoleAdmin)]
+        public async Task<IActionResult> ChangeRole(string userId, string newRole)
+        {
+            var result = await _authService.GetUser(userId);
+            IdentityUser? user;
+
+            if (result != null && result.IsSuccess)
+            {
+                user = JsonConvert.DeserializeObject<IdentityUser>(Convert.ToString(result.Result));
+                await _authService.SetRole(new SetRoleRequestDto { User = user, RoleName = newRole });
+                TempData["success"] = "User role has been successfully changed";
+            }
+            else
+            {
+                TempData["error"] = "Failed to change user role.";
+            }
+            return RedirectToAction("UserIndex");
         }
     }
 }

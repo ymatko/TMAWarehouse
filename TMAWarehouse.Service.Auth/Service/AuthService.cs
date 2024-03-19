@@ -6,7 +6,7 @@ using TMAWarehouse.Services.Auth.Data;
 
 namespace TMAWarehouse.Service.Auth.Service
 {
-    public class AuthService : IAuthService
+	public class AuthService : IAuthService
     {
         private readonly AppDbContext _db;
         private readonly UserManager<IdentityUser> _userManager;
@@ -39,7 +39,56 @@ namespace TMAWarehouse.Service.Auth.Service
             return false;
         }
 
-        public async Task<IEnumerable<IdentityUser>> GetUsers()
+		public async Task<IdentityUser> ChangeRole(string email, string roleName)
+		{
+            var user = _db.Users.FirstOrDefault(u => u.UserName.ToLower() == email.ToLower());
+
+            if(user != null)
+            {
+                var currentRoles = await _userManager.GetRolesAsync(user);
+
+                await _userManager.RemoveFromRolesAsync(user, currentRoles);
+
+                await _userManager.AddToRoleAsync(user, roleName);
+                return user;
+            }
+            return new IdentityUser();
+		}
+
+		public async Task<string> GetRole(string userId)
+		{
+			var user = _db.Users.FirstOrDefault(u => u.Id == userId);
+
+			if (user == null)
+			{
+				return string.Empty;
+			}
+
+			var userRole = _db.UserRoles
+				.Where(ur => ur.UserId == userId)
+				.Join(_db.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => r)
+				.FirstOrDefault();
+
+			if (userRole == null)
+			{
+				return string.Empty;
+			}
+
+			return userRole.Name;
+		}
+
+		public async Task<IdentityUser> GetUser(string userId)
+		{
+			var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+			if (user != null)
+			{
+				return user;
+			}
+			return new IdentityUser();
+		}
+
+		public async Task<IEnumerable<IdentityUser>> GetUsers()
         {
             IEnumerable<IdentityUser> users;
             try
