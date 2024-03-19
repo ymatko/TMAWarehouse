@@ -81,7 +81,7 @@ namespace TMAWarehouse.Web.Controllers
                 ResponseDto? response = await _orderService.CreateOrderAsync(newOrder);
                 if (response != null && response.IsSuccess)
                 {
-                    TempData["success"] = "Order created successfully";
+                    TempData["success"] = "Request created successfully";
                     return RedirectToAction("ItemIndexHome");
                 }
             }
