@@ -1,4 +1,5 @@
-﻿using TMAWarehouse.Service.Auth.Models.Dto;
+﻿using Microsoft.AspNetCore.Identity;
+using TMAWarehouse.Service.Auth.Models.Dto;
 
 namespace TMAWarehouse.Service.Auth.Service.IService
 {
@@ -7,5 +8,6 @@ namespace TMAWarehouse.Service.Auth.Service.IService
         Task<string> Register(RegistrationRequestDto registrationRequestDto);
         Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto);
         Task<bool> AssignRole(string email, string roleName);
+        Task<IEnumerable<IdentityUser>> GetUsers();
     }
 }

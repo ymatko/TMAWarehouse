@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TMAWarehouse.Service.Auth.Models.Dto;
 using TMAWarehouse.Service.Auth.Service.IService;
 using TMAWarehouse.Services.Auth.Data;
@@ -36,6 +37,24 @@ namespace TMAWarehouse.Service.Auth.Service
                 return true;
             }
             return false;
+        }
+
+        public async Task<IEnumerable<IdentityUser>> GetUsers()
+        {
+            IEnumerable<IdentityUser> users;
+            try
+            {
+                users = await _db.Users.ToListAsync();
+                if(users == null)
+                {
+                    return Enumerable.Empty<IdentityUser>();
+                }
+            }
+            catch(Exception ex)
+            {
+                users = Enumerable.Empty<IdentityUser>();
+            }
+            return users;
         }
 
         public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
