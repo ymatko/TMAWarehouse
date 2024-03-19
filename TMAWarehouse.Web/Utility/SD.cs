@@ -16,33 +16,31 @@ namespace TMAWarehouse.Web.Utility
         public static string AuthAPIBase { get; set; }
 
         // Item Group
-        public const string Group1 = "Group 1";
-        public const string Group2 = "Group 2";
-        public const string Group3 = "Group 3";
-        public const string Group4 = "Group 4";
-        public const string Group5 = "Group 5";
+        public const string Electronics = "Electronics";
+        public const string Clothing = "Clothing";
+        public const string Stationery = "Stationery";
+        public const string Footwear = "Footwear";
+        public const string Appliances = "Appliances";
+        public const string Bags = "Bags";
 
         public static List<SelectListItem> ItemGroup = new List<SelectListItem>()
         {
-            new SelectListItem{Text=SD.Group1,Value=Group1},
-            new SelectListItem{Text=SD.Group2,Value=Group2},
-            new SelectListItem{Text=SD.Group3,Value=Group3},
-            new SelectListItem{Text=SD.Group4,Value=Group4},
-            new SelectListItem{Text=SD.Group5,Value=Group5},
+            new SelectListItem{Text=SD.Electronics,Value=Electronics},
+            new SelectListItem{Text=SD.Clothing,Value=Clothing},
+            new SelectListItem{Text=SD.Stationery,Value=Stationery},
+            new SelectListItem{Text=SD.Footwear,Value=Footwear},
+            new SelectListItem{Text=SD.Appliances,Value=Appliances},
+            new SelectListItem{Text=SD.Bags,Value=Bags},
         };
 
         // Unit of measurement
-        public const string Kilogram = "Kilogram(kg)";
-        public const string Hectogram = "Hectogram(hg)";
-        public const string Decagram = "Decagram(dag)";
-        public const string Gram = "Gram(g)";
+        public const string Piece = "Piece";
+        public const string Pair = "Pair";
 
         public static List<SelectListItem> Units = new List<SelectListItem>()
         {
-            new SelectListItem{Text=SD.Kilogram,Value=Kilogram},
-            new SelectListItem{Text=SD.Hectogram,Value=Hectogram},
-            new SelectListItem{Text=SD.Decagram,Value=Decagram},
-            new SelectListItem{Text=SD.Gram,Value=Gram},
+            new SelectListItem{Text=SD.Piece,Value=Piece},
+            new SelectListItem{Text=SD.Pair,Value=Pair},
         };
 
         // Status of Order
@@ -61,6 +59,13 @@ namespace TMAWarehouse.Web.Utility
         public const string RoleAdmin = "ADMIN";
         public const string RoleEmployee = "EMPLOYEE";
         public const string RoleCoordinator = "COORDINATOR";
+
+        public static List<SelectListItem> Roles = new List<SelectListItem>()
+        {
+            new SelectListItem{Text=SD.RoleAdmin,Value=RoleAdmin},
+            new SelectListItem{Text=SD.RoleEmployee,Value=RoleEmployee},
+            new SelectListItem{Text=SD.RoleCoordinator,Value=RoleCoordinator}
+        };
 
         public const string TokenCookie = "JWTToken";
     }
