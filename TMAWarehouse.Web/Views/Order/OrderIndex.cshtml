@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TMARequestDto>
+﻿@using TMAWarehouse.Web.Utility
+@model IEnumerable<TMARequestDto>
 
 <div class="container">
 	<div class="card shadow border-0 mt-4">
@@ -46,13 +47,16 @@
 				</table>
 			</div>
 			<br />
-			<div class="row pb-3">
-				<div class="col-6">
+			@if (User.IsInRole(SD.RoleAdmin))
+			{
+				<div class="row pb-3">
+					<div class="col-6">
+					</div>
+					<div class="col-6 text-end">
+						<a asp-action="OrderCreate" class="btn btn-outline-success"><i class="bi bi-plus-square"></i> Create New Order</a>
+					</div>
 				</div>
-				<div class="col-6 text-end">
-					<a asp-action="OrderCreate" class="btn btn-outline-success"><i class="bi bi-plus-square"></i> Create New Order</a>
-				</div>
-			</div>
+			}
 		</div>
 	</div>
 </div>
