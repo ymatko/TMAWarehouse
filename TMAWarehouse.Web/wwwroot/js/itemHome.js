@@ -10,9 +10,9 @@ function loadDataTable() {
         "columns": [
             { data: 'itemID', "width": "5%" },
             { data: 'name', "width": "10%" },
-            { data: 'group', "width": "5%" },
+            { data: 'group', "width": "10%" },
             { data: 'unitOfMeasurement', "width": "10%" },
-            { data: 'quantity', "width": "10%" },
+            { data: 'quantity', "width": "5%" },
             { data: 'priceWithoutVAT', "width": "10%" },
             { data: 'status', "width": "10%" },
             { data: 'storageLocation', "width": "10%" },
@@ -26,7 +26,7 @@ function loadDataTable() {
                         '</div>' +
                         '</div>';
                 },
-                "width": "20%"
+                "width": "1%"
             }
         ]
     });

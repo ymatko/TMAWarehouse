@@ -151,7 +151,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> ConfirmOrder(int orderId)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(orderId);
@@ -178,7 +178,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return NotFound();
         }
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> RejectOrder(int orderId)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(orderId);
@@ -192,7 +192,7 @@ namespace TMAWarehouse.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> RejectOrder(TMARequestDto model)
         {
             ResponseDto? response = await _orderService.GetOrderAsync(model.RequestID);

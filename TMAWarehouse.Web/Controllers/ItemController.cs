@@ -88,7 +88,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> ItemCreate()
         {
             ViewBag.ItemGroup = SD.ItemGroup;
@@ -96,7 +96,8 @@ namespace TMAWarehouse.Web.Controllers
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
+
         public async Task<IActionResult> ItemCreate(ItemDto itemDto)
         {
             if (ModelState.IsValid)
@@ -110,7 +111,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(itemDto);
         }
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> ItemUpdate(int itemId)
         {
             ResponseDto? response = await _itemService.GetItemAsync(itemId);
@@ -124,7 +125,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
         [HttpPost]
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> ItemUpdate(ItemDto itemDto)
         {
             if (ModelState.IsValid)
@@ -138,7 +139,7 @@ namespace TMAWarehouse.Web.Controllers
             }
             return View(itemDto);
         }
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> ItemDelete(int itemId)
         {
             ResponseDto? response = await _itemService.GetItemAsync(itemId);
@@ -150,7 +151,7 @@ namespace TMAWarehouse.Web.Controllers
             return NotFound();
         }
         [HttpPost]
-        [Authorize(Roles = SD.RoleAdmin)]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<IActionResult> ItemDelete(ItemDto model)
         {
             ResponseDto? response = await _itemService.DeleteItemAsync(model.ItemID);

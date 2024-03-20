@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TMAWarehouse.Services.TMARequest.Models.Dto;
+using TMAWarehouse.Services.TMARequest.Utility;
 using TMAWWarehouse.Services.TMARequests.Data;
 using TMAWWarehouse.Services.TMARequests.Models;
 using TMAWWarehouse.Services.TMARequests.Models.Dto;
@@ -81,7 +82,7 @@ namespace TMAWWarehouse.Services.TMARequests.Controllers
 
         [HttpPut("UpdateTMARequest")]
         [Tags("Updaters")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
         public async Task<ResponseDto?> Put([FromBody] TMARequestDto itemDto)
         {
             try
