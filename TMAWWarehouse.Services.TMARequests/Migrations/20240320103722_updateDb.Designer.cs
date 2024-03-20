@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TMAWWarehouse.Services.TMARequests.Data;
 
@@ -10,9 +11,11 @@ using TMAWWarehouse.Services.TMARequests.Data;
 namespace TMAWWarehouse.Services.TMARequests.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320103722_updateDb")]
+    partial class updateDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,6 +58,51 @@ namespace TMAWWarehouse.Services.TMARequests.Migrations
                     b.HasKey("RequestID");
 
                     b.ToTable("TMARequests");
+                });
+
+            modelBuilder.Entity("TMAWWarehouse.Services.TMARequests.Models.TMARequestRow", b =>
+                {
+                    b.Property<int>("RequestRowID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestRowID"));
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ItemID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PriceWithoutVAT")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitOfMeasurement")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RequestRowID");
+
+                    b.HasIndex("RequestID");
+
+                    b.ToTable("TMARequestRows");
+                });
+
+            modelBuilder.Entity("TMAWWarehouse.Services.TMARequests.Models.TMARequestRow", b =>
+                {
+                    b.HasOne("TMAWWarehouse.Services.TMARequests.Models.TMARequest", "TMARequest")
+                        .WithMany()
+                        .HasForeignKey("RequestID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TMARequest");
                 });
 #pragma warning restore 612, 618
         }
