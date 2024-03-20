@@ -11,6 +11,7 @@ namespace TMAWWarehouse.Services.TMARequests.Data
         }
 
         public DbSet<TMARequest> TMARequests { get; set; }
+        public DbSet<TMARequestRow> TMARequestRows { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
