@@ -13,5 +13,6 @@ namespace TMAWWarehouse.Services.TMARequests.Models
         public string EmployeeName { get; set; }
 
         public string? Status { get; set; }
+        public IEnumerable<TMARequestRow> TMARequestRows { get; set; }
     }
 }

@@ -38,7 +38,7 @@ namespace TMAWWarehouse.Services.TMARequests.Migrations
 
                     b.HasKey("RequestID");
 
-                    b.ToTable("TMARequests");
+                    b.ToTable("TMARequests", (string)null);
                 });
 
             modelBuilder.Entity("TMAWWarehouse.Services.TMARequests.Models.TMARequestRow", b =>
@@ -72,7 +72,7 @@ namespace TMAWWarehouse.Services.TMARequests.Migrations
 
                     b.HasIndex("RequestID");
 
-                    b.ToTable("TMARequestRows");
+                    b.ToTable("TMARequestRows", (string)null);
                 });
 
             modelBuilder.Entity("TMAWWarehouse.Services.TMARequests.Models.TMARequestRow", b =>
