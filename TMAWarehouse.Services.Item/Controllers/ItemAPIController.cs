@@ -69,6 +69,25 @@ namespace TMAWarehouse.Services.Item.Controllers
                 Models.Item item = _mapper.Map<Models.Item>(itemDto);
                 _db.Items.Add(item);
                 await _db.SaveChangesAsync();
+
+                if(itemDto.Photo != null)
+                {
+                    string fileName = item.ItemID + Path.GetExtension(itemDto.Photo.FileName);
+                    string filePach = @"wwwroot\ItemPhoto\" + fileName;
+                    var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePach);
+                    using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
+                    {
+                        itemDto.Photo.CopyTo(fileStream);
+                    }
+                    var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+                    item.PhotoUrl = baseUrl + "/ItemPhoto/" + filePach;
+                    item.PhotoLocalPach = filePach;
+				}
+                else
+                {
+                    item.PhotoUrl = "https://placehold.co/600x400";
+                }
+
                 _response.Result = _mapper.Map<ItemDto>(item);
             }
             catch (Exception ex)
