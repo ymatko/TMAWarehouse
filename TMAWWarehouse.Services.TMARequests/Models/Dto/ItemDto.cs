@@ -22,6 +22,7 @@ namespace TMAWarehouse.Services.TMARequest.Models.Dto
 
         public string? ContactPerson { get; set; }
 
-        public string? Photo { get; set; }
-    }
+        public string? PhotoUrl { get; set; }
+		public string? PhotoLocalPach { get; set; }
+	}
 }

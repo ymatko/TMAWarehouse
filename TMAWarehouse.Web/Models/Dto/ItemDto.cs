@@ -22,6 +22,8 @@ namespace TMAWarehouse.Web.Models.Dto
 
         public string? ContactPerson { get; set; }
 
-        public string? Photo { get; set; }
-    }
+        public string? PhotoUrl { get; set; }
+		public string? PhotoLocalPach { get; set; }
+        public IFormFile? Photo { get; set; }
+	}
 }

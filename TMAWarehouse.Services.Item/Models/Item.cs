@@ -28,6 +28,7 @@ namespace TMAWarehouse.Services.Item.Models
 
         public string? ContactPerson { get; set; }
 
-        public string? Photo { get; set; }
+        public string? PhotoUrl { get; set; }
+        public string? PhotoLocalPach { get; set; }
     }
 }
