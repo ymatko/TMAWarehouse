@@ -11,6 +11,13 @@ namespace TMAWarehouse.Web.Utility
             PUT,
             DELETE
         }
+
+        public enum ContentType
+        {
+            Json,
+            MultipartFormData,
+        }
+
         public static string ItemAPIBase { get; set; }
         public static string OrderAPIBase { get; set; }
         public static string AuthAPIBase { get; set; }

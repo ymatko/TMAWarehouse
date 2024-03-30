@@ -36,7 +36,8 @@ namespace TMAWarehouse.Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = itemDto,
-                Url = SD.ItemAPIBase + "/Lists/Items/CreateItem"
+                Url = SD.ItemAPIBase + "/Lists/Items/CreateItem",
+                ContentType = SD.ContentType.MultipartFormData
             });
         }
 
@@ -46,8 +47,9 @@ namespace TMAWarehouse.Web.Services
             {
                 ApiType = SD.ApiType.PUT,
                 Data = itemDto,
-                Url = SD.ItemAPIBase + "/Lists/Items/UpdateItem"
-            });
+                Url = SD.ItemAPIBase + "/Lists/Items/UpdateItem",
+				ContentType = SD.ContentType.MultipartFormData
+			});
         }
 
         public async Task<ResponseDto?> DeleteItemAsync(int id)
