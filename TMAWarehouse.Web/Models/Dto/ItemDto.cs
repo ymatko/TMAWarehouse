@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TMAWarehouse.Web.Utility;
 
 namespace TMAWarehouse.Web.Models.Dto
 {
@@ -24,6 +25,8 @@ namespace TMAWarehouse.Web.Models.Dto
 
         public string? PhotoUrl { get; set; }
 		public string? PhotoLocalPach { get; set; }
+        [MaxFileSize(5)]
+        [AllowedExtensions(new string[] { ".jpg", ".png" })]
         public IFormFile? Photo { get; set; }
 	}
 }
