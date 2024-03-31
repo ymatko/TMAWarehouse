@@ -62,7 +62,7 @@ namespace TMAWarehouse.Services.Item.Controllers
         [HttpPost("CreateItem")]
         [Tags("Creators")]
         [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
-        public async Task<ResponseDto?> Post([FromBody] ItemDto itemDto)
+        public async Task<ResponseDto?> Post([FromForm] ItemDto itemDto)
         {
             try
             {
@@ -80,13 +80,16 @@ namespace TMAWarehouse.Services.Item.Controllers
                         itemDto.Photo.CopyTo(fileStream);
                     }
                     var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
-                    item.PhotoUrl = baseUrl + "/ItemPhoto/" + filePach;
+                    item.PhotoUrl = baseUrl + "/ItemPhoto/" + fileName;
                     item.PhotoLocalPach = filePach;
 				}
                 else
                 {
                     item.PhotoUrl = "https://placehold.co/600x400";
                 }
+
+                _db.Items.Update(item);
+                await _db.SaveChangesAsync();
 
                 _response.Result = _mapper.Map<ItemDto>(item);
             }

@@ -1,6 +1,6 @@
 ﻿@model ItemDto
 
-<form asp-action="ItemCreate">
+<form asp-action="ItemCreate" enctype="multipart/form-data">
 	<div class="container">
         <div class="card shadow border-0 mt-4">
             <div class="card-header bg-gradient ml-0 py-3">
@@ -82,6 +82,7 @@
                     </div>
                     <div class="col-10 pb-3">
                         <input asp-for="Photo" class="form-control" />
+                        <input asp-for="PhotoUrl" hidden class="form-control" />
                         <span asp-validation-for="Photo" class="text-danger"></span>
                     </div>
                     <div class="col-5 offset-2">

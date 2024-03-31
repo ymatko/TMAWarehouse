@@ -54,7 +54,12 @@ namespace TMAWarehouse.Web.Services
                                 content.Add(new StreamContent(file.OpenReadStream()), prop.Name, file.FileName);
                             }
                         }
+                        else
+                        {
+                            content.Add(new StringContent(value == null ? "" : value.ToString()), prop.Name);
+                        }
                     }
+                    message.Content = content;
                 }
                 else
                 {
