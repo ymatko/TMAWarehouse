@@ -104,11 +104,36 @@ namespace TMAWarehouse.Services.Item.Controllers
         [HttpPut("UpdateItem")]
         [Tags("Updaters")]
         [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleCoordinator)]
-        public async Task<ResponseDto?> Put([FromBody] ItemDto itemDto)
+        public async Task<ResponseDto?> Put([FromForm] ItemDto itemDto)
         {
             try
             {
                 Models.Item item = _mapper.Map<Models.Item>(itemDto);
+
+                if (itemDto.Photo != null)
+                {
+                    if (!string.IsNullOrEmpty(item.PhotoLocalPach))
+                    {
+                        var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), item.PhotoLocalPach);
+                        FileInfo file = new FileInfo(oldFilePathDirectory);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+                    }
+
+                    string fileName = item.ItemID + Path.GetExtension(itemDto.Photo.FileName);
+                    string filePach = @"wwwroot\ItemPhoto\" + fileName;
+                    var filePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), filePach);
+                    using (var fileStream = new FileStream(filePathDirectory, FileMode.Create))
+                    {
+                        itemDto.Photo.CopyTo(fileStream);
+                    }
+                    var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+                    item.PhotoUrl = baseUrl + "/ItemPhoto/" + fileName;
+                    item.PhotoLocalPach = filePach;
+                }
+
                 _db.Items.Update(item);
                 await _db.SaveChangesAsync();
                 _response.Result = _mapper.Map<ItemDto>(item);
@@ -129,6 +154,15 @@ namespace TMAWarehouse.Services.Item.Controllers
             try
             {
                 Models.Item item = await _db.Items.FirstAsync(u => u.ItemID == id);
+                if(!string.IsNullOrEmpty(item.PhotoLocalPach))
+                {
+                    var oldFilePathDirectory = Path.Combine(Directory.GetCurrentDirectory(), item.PhotoLocalPach);
+                    FileInfo file = new FileInfo(oldFilePathDirectory);
+                    if (file.Exists)
+                    {
+                        file.Delete();
+                    }
+                }
                 _db.Items.Remove(item);
                 await _db.SaveChangesAsync();
             }
