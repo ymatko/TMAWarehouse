@@ -18,6 +18,17 @@ function loadDataTable() {
             { data: 'storageLocation', "width": "10%" },
             { data: 'contactPerson', "width": "15%" },
             {
+                data: 'photoUrl',
+                render: function (data) {
+                    if (data) {
+                        return '<img src="' + data + '" alt="Item Photo" style="max-width: 200px; max-height: 200px;">';
+                    } else {
+                        return '<img src="https://placehold.co/600x400" alt="Item Photo" style="max-width: 200px; max-height: 200px;">';
+                    }
+                },
+                "width": "10%"
+            },
+            {
                 data: 'itemID',
                 "render": function (data) {
                     return '<div class="btn-toolbar" role="toolbar">' +

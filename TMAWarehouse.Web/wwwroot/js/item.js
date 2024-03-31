@@ -11,12 +11,23 @@ function loadDataTable() {
             { data: 'itemID', "width": "5%" },
             { data: 'name', "width": "10%" },
             { data: 'group', "width": "5%" },
-            { data: 'unitOfMeasurement', "width": "10%" },
-            { data: 'quantity', "width": "10%" },
-            { data: 'priceWithoutVAT', "width": "10%" },
+            { data: 'unitOfMeasurement', "width": "7%" },
+            { data: 'quantity', "width": "5%" },
+            { data: 'priceWithoutVAT', "width": "5%" },
             { data: 'status', "width": "10%" },
             { data: 'storageLocation', "width": "10%" },
             { data: 'contactPerson', "width": "15%" },
+            {
+                data: 'photoUrl',
+                render: function (data) {
+                    if (data) {
+                        return '<img src="' + data + '" alt="Item Photo" style="max-width: 100px; max-height: 100px;">';
+                    } else {
+                        return '<img src="https://placehold.co/600x400" alt="Item Photo" style="max-width: 100px; max-height: 100px;">';
+                    }
+                },
+                "width": "10%"
+            },
             {
                 data: 'itemID',
                 "render": function (data) {
